@@ -1,4 +1,4 @@
-package com.example.examplemod;
+package com.goldfish.goldfishmod01logrecipe;
 
 import java.util.List;
 import java.util.Set;
