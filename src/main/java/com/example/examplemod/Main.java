@@ -5,14 +5,22 @@ import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.Container;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -38,7 +46,6 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 @Mod(Main.MODID)
 public class Main
 {
-    // Define mod id in a common place for everything to reference
     public static final String MODID = "goldfishmod01logrecipe";
     // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
@@ -49,25 +56,17 @@ public class Main
     // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "examplemod" namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
-    // // Creates a new Block with the id "examplemod:example_block", combining the namespace and path
-    // public static final DeferredBlock<Block> EXAMPLE_BLOCK = BLOCKS.registerSimpleBlock("example_block", BlockBehaviour.Properties.of().mapColor(MapColor.STONE));
-    // // Creates a new BlockItem with the id "examplemod:example_block", combining the namespace and path
-    // public static final DeferredItem<BlockItem> EXAMPLE_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("example_block", EXAMPLE_BLOCK);
-
-    // Creates a new food item with the id "examplemod:example_id", nutrition 1 and saturation 2
-    public static final DeferredItem<Item> DEBARKING_KNIFE = ITEMS.registerSimpleItem("debarking_knife", new Item.Properties().craftRemainder(null));
+    public static final DeferredItem<Item> debarking_knife_item = ITEMS.registerSimpleItem("debarking_knife_item", new Item.Properties().craftRemainder(null));
 
     // Creates a creative tab with the id "examplemod:example_tab" for the example item, that is placed after the combat tab
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.examplemod")) //The language key for the title of your CreativeModeTab
             .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon(() -> DEBARKING_KNIFE.get().getDefaultInstance())
+            .icon(() -> debarking_knife_item.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.accept(DEBARKING_KNIFE.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+                output.accept(debarking_knife_item.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
             }).build());
 
-    // The constructor for the mod class is the first code that is run when your mod is loaded.
-    // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
     public Main(IEventBus modEventBus, ModContainer modContainer)
     {
         // Register the commonSetup method for modloading
@@ -80,9 +79,6 @@ public class Main
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
 
-        // Register ourselves for server and other game events we are interested in.
-        // Note that this is necessary if and only if we want *this* class (ExampleMod) to respond directly to events.
-        // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
         NeoForge.EVENT_BUS.register(this);
 
         // Register the item to a creative tab
@@ -90,6 +86,7 @@ public class Main
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
@@ -105,14 +102,6 @@ public class Main
         Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
     }
 
-    // Add the example block item to the building blocks tab
-    // private void addCreative(BuildCreativeModeTabContentsEvent event)
-    // {
-    //     if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS)
-    //         event.accept(EXAMPLE_BLOCK_ITEM);
-    // }
-
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event)
     {
@@ -132,4 +121,38 @@ public class Main
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
         }
     }
+    public record debarking_knife_recipe(Ingredient input, int data, ItemStack output) implements Recipe<Container> {
+        @Override
+        public RecipeType<?> getType() {
+            return RecipeType.CRAFTING;
+        }
+        @Override
+        public RecipeSerializer<?> getSerializer() {
+        return RecipeSerializer.SHAPELESS_RECIPE;
+        }
+        @Override
+        public boolean canCraftInDimensions(int pWidth, int pHeight) {
+            return true;
+        }
+        @Override
+        public boolean matches(Container pContainer, Level pLevel) {
+            return input.test(pContainer.getItem(0));
+        }
+        @Override
+        public ItemStack assemble(Container pCraftingContainer, Provider pRegistries)  {
+            if (!matches(pCraftingContainer, null)) {
+                return ItemStack.EMPTY;
+            }
+        
+            ItemStack debarking_knife_item = new ItemStack(output.getItem(), 1);
+        
+            return debarking_knife_item;
+        }
+        @Override
+        public ItemStack getResultItem(Provider pRegistries) {
+            return output.copy();
+        }
+    }
+    
 }
+
