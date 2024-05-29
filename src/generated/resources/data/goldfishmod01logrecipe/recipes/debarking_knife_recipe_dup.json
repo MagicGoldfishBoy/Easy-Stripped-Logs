@@ -1,6 +1,6 @@
 {
     "type": "minecraft:crafting_shapeless",
-    "ingredients": [
+    "ingredient": [
         {
             "item": "minecraft:flint"
         },
@@ -9,7 +9,7 @@
         }
     ],
     "result": {
-        "item": "goldfishmod01logrecipe:debarking_knife_item",
+        "id": "goldfishmod01logrecipe:debarking_knife_item",
         "count": 1
     }
 }

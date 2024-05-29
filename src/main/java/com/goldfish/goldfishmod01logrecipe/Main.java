@@ -72,11 +72,8 @@ public class Main
         // Register the commonSetup method for modloading
         modEventBus.addListener(this::commonSetup);
 
-        // Register the Deferred Register to the mod event bus so blocks get registered
         BLOCKS.register(modEventBus);
-        // Register the Deferred Register to the mod event bus so items get registered
         ITEMS.register(modEventBus);
-        // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
@@ -117,42 +114,42 @@ public class Main
         public static void onClientSetup(FMLClientSetupEvent event)
         {
             // Some client setup code
-            LOGGER.info("HELLO FROM CLIENT SETUP");
+            LOGGER.info("Brillant");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
         }
     }
-    public record debarking_knife_recipe(Ingredient input, int data, ItemStack output) implements Recipe<Container> {
-        @Override
-        public RecipeType<?> getType() {
-            return RecipeType.CRAFTING;
-        }
-        @Override
-        public RecipeSerializer<?> getSerializer() {
-        return RecipeSerializer.SHAPELESS_RECIPE;
-        }
-        @Override
-        public boolean canCraftInDimensions(int pWidth, int pHeight) {
-            return true;
-        }
-        @Override
-        public boolean matches(Container pContainer, Level pLevel) {
-            return input.test(pContainer.getItem(0));
-        }
-        @Override
-        public ItemStack assemble(Container pCraftingContainer, Provider pRegistries)  {
-            if (!matches(pCraftingContainer, null)) {
-                return ItemStack.EMPTY;
-            }
+    // public record debarking_knife_recipe(Ingredient input, int data, ItemStack output) implements Recipe<Container> {
+    //     @Override
+    //     public RecipeType<?> getType() {
+    //         return RecipeType.CRAFTING;
+    //     }
+    //     @Override
+    //     public RecipeSerializer<?> getSerializer() {
+    //     return RecipeSerializer.SHAPELESS_RECIPE;
+    //     }
+    //     @Override
+    //     public boolean canCraftInDimensions(int pWidth, int pHeight) {
+    //         return true;
+    //     }
+    //     @Override
+    //     public boolean matches(Container pContainer, Level pLevel) {
+    //         return input.test(pContainer.getItem(0));
+    //     }
+    //     @Override
+    //     public ItemStack assemble(Container pCraftingContainer, Provider pRegistries)  {
+    //         if (!matches(pCraftingContainer, null)) {
+    //             return ItemStack.EMPTY;
+    //         }
         
-            ItemStack debarking_knife_item = new ItemStack(output.getItem(), 1);
+    //         ItemStack debarking_knife_item = new ItemStack(output.getItem(), 1);
         
-            return debarking_knife_item;
-        }
-        @Override
-        public ItemStack getResultItem(Provider pRegistries) {
-            return output.copy();
-        }
-    }
+    //         return debarking_knife_item;
+    //     }
+    //     @Override
+    //     public ItemStack getResultItem(Provider pRegistries) {
+    //         return output.copy();
+    //     }
+    // }
     
 }
 
