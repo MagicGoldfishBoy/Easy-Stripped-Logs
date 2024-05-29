@@ -58,6 +58,7 @@ public class Main
 
     public static final DeferredItem<Item> debarking_knife_item = ITEMS.registerSimpleItem("debarking_knife_item", new Item.Properties().craftRemainder(null));
 
+
     // Creates a creative tab with the id "examplemod:example_tab" for the example item, that is placed after the combat tab
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.examplemod")) //The language key for the title of your CreativeModeTab
