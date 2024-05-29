@@ -1,0 +1,15 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:dark_oak_log"
+        },
+        {
+            "item": "goldfishmod01logrecipe:debarking_knife_item"
+        }
+    ],
+    "result": {
+        "id": "minecraft:stripped_dark_oak_log",
+        "count": 1
+    }
+}
