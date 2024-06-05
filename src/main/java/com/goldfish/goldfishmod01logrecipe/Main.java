@@ -2,6 +2,8 @@ package com.goldfish.goldfishmod01logrecipe;
 
 import org.slf4j.Logger;
 
+import com.goldfish.goldfishmod01logrecipe.item.LogDebarkingItem;
+import com.goldfish.goldfishmod01logrecipe.item.ModItems;
 import com.mojang.logging.LogUtils;
 
 import net.minecraft.client.Minecraft;
@@ -42,20 +44,24 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import com.goldfish.goldfishmod01logrecipe.*;
+import com.goldfish.goldfishmod01logrecipe.init.ItemInit;
+
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(Main.MODID)
 public class Main
 {
     public static final String MODID = "goldfishmod01logrecipe";
-    // Directly reference a slf4j logger
+
     private static final Logger LOGGER = LogUtils.getLogger();
-    // Create a Deferred Register to hold Blocks which will all be registered under the "examplemod" namespace
+
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(MODID);
-    // Create a Deferred Register to hold Items which will all be registered under the "examplemod" namespace
+
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
-    // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "examplemod" namespace
+
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
+    //debarking knife simple
     public static final DeferredItem<Item> debarking_knife_item = ITEMS.registerSimpleItem("debarking_knife_item", new Item.Properties().craftRemainder(null)); //todo: find way to make crafting remainder work
 
 
@@ -70,12 +76,14 @@ public class Main
 
     public Main(IEventBus modEventBus, ModContainer modContainer)
     {
-        // Register the commonSetup method for modloading
+        //ItemInit.Items.register(modEventBus); //TODO: find out why this causes java.lang.ExceptionInInitializerError
+        //ModItems.ITEMS.register(modEventBus);
         modEventBus.addListener(this::commonSetup);
 
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
+        
 
         NeoForge.EVENT_BUS.register(this);
 
@@ -103,7 +111,6 @@ public class Main
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event)
     {
-        // Do something when the server starts
         LOGGER.info("HELLO from server starting");
     }
 
