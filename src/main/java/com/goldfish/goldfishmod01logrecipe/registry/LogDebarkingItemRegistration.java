@@ -1,7 +1,8 @@
-package com.goldfish.goldfishmod01logrecipe.init;
+package com.goldfish.goldfishmod01logrecipe.registry;
 
 import org.slf4j.Logger;
 
+import com.goldfish.goldfishmod01logrecipe.item.LogDebarkingItem;
 import com.mojang.logging.LogUtils;
 
 import net.minecraft.client.Minecraft;
@@ -9,6 +10,7 @@ import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
@@ -34,6 +36,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.loading.moddiscovery.ModInfo;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
@@ -42,11 +45,17 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import com.goldfish.goldfishmod01logrecipe.*;
+import com.goldfish.goldfishmod01logrecipe.Main;
 import com.goldfish.goldfishmod01logrecipe.item.LogDebarkingItem;
 
-public class ItemInit {
-    public static final DeferredRegister.Items Items = DeferredRegister.createItems("goldfishmod01logrecipe.MOD_ID");
+
+public class LogDebarkingItemRegistration {
+    public static DeferredItem<Item> LogDebarkingItemRegistrationMethod(){
+      //  public static final DeferredRegister.Items ITEMS = Main.ITEMS;
     
-    public static final DeferredItem<Item> LogDebarkingItem = Items.register("debarking knife", () -> new Item(new Item.Properties()));
+        DeferredItem<Item> LogDebarkingItem = Main.ITEMS.register("log_debarking_item", () ->
+        new LogDebarkingItem(new Item.Properties()));
+        return LogDebarkingItem;
+    };
+
 }
