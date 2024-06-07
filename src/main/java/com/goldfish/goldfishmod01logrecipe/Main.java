@@ -62,6 +62,7 @@ public class Main
 
     public static final DeferredItem<Item> DebarkReg = logdebarkingitem.logdebarkingitemRegistrationMethod();
 
+
     //debarking knife simple
     //public static final DeferredItem<Item> debarking_knife_item = ITEMS.registerSimpleItem("debarking_knife_item", new Item.Properties().craftRemainder(null)); //todo: find way to make crafting remainder work
 
@@ -73,8 +74,8 @@ public class Main
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
-        
-        
+        DebarkReg.getId();
+        DebarkReg.getKey();
 
         NeoForge.EVENT_BUS.register(this);
 

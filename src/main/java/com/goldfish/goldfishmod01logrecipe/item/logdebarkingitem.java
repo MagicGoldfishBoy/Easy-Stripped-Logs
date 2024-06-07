@@ -47,30 +47,32 @@ import com.goldfish.goldfishmod01logrecipe.*;
 import com.goldfish.goldfishmod01logrecipe.Main.*;
 
 public class logdebarkingitem extends Item {
+	public static final DeferredItem<Item> logdebarkingitemRegistrationMethod(){
+	  
+		DeferredItem<Item> logdebarkingitem = Main.ITEMS.register("log_debarking_item", () ->
+		new logdebarkingitem(new Item.Properties()));
+		System.out.println("registered debarker");
+		return logdebarkingitem;
+	};
+	
     public logdebarkingitem(Item.Properties properties) {
         super(properties);
+		properties.craftRemainder(this);
     }
 
-    public Item craftRemainder(Item item) {
-	    return this;
-	}
-    
-	public ItemStack getCraftingRemainingItem(ItemStack stack)
-	{
-		return stack.copy();
-	}
-
-	public boolean hasCraftingRemainingItem(ItemStack stack)
-	{
-		return true;
-	}
-
-	public static DeferredItem<Item> logdebarkingitemRegistrationMethod(){
-	  
-		  DeferredItem<Item> logdebarkingitem = Main.ITEMS.register("log_debarking_item", () ->
-		  new logdebarkingitem(new Item.Properties()));
-		  return logdebarkingitem;
-	  };
-
-
 }
+
+    // public Item craftRemainder(Item item) {
+	// 	System.out.println("debarker craft remainder");
+	//     return this;		
+	// }
+    
+	// public ItemStack getCraftingRemainingItem(ItemStack stack)
+	// {
+	// 	return stack.copy();
+	// }
+
+	// public boolean hasCraftingRemainingItem(ItemStack stack)
+	// {
+	// 	return true;
+	// }
