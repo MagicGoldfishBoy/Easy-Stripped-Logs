@@ -1,8 +1,7 @@
-package com.goldfish.goldfishmod01logrecipe.registry;
+package com.goldfish.goldfishmod01logrecipe.item;
 
 import org.slf4j.Logger;
 
-import com.goldfish.goldfishmod01logrecipe.item.LogDebarkingItem;
 import com.mojang.logging.LogUtils;
 
 import net.minecraft.client.Minecraft;
@@ -10,7 +9,6 @@ import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.Container;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
@@ -18,6 +16,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -36,7 +35,6 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.fml.loading.moddiscovery.ModInfo;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
@@ -45,17 +43,34 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
-import com.goldfish.goldfishmod01logrecipe.Main;
-import com.goldfish.goldfishmod01logrecipe.item.LogDebarkingItem;
+import com.goldfish.goldfishmod01logrecipe.*;
+import com.goldfish.goldfishmod01logrecipe.Main.*;
 
+public class logdebarkingitem extends Item {
+    public logdebarkingitem(Item.Properties properties) {
+        super(properties);
+    }
 
-public class LogDebarkingItemRegistration {
-    public static DeferredItem<Item> LogDebarkingItemRegistrationMethod(){
-      //  public static final DeferredRegister.Items ITEMS = Main.ITEMS;
+    public Item craftRemainder(Item item) {
+	    return this;
+	}
     
-        DeferredItem<Item> LogDebarkingItem = Main.ITEMS.register("log_debarking_item", () ->
-        new LogDebarkingItem(new Item.Properties()));
-        return LogDebarkingItem;
-    };
+	public ItemStack getCraftingRemainingItem(ItemStack stack)
+	{
+		return stack.copy();
+	}
+
+	public boolean hasCraftingRemainingItem(ItemStack stack)
+	{
+		return true;
+	}
+
+	public static DeferredItem<Item> logdebarkingitemRegistrationMethod(){
+	  
+		  DeferredItem<Item> logdebarkingitem = Main.ITEMS.register("log_debarking_item", () ->
+		  new logdebarkingitem(new Item.Properties()));
+		  return logdebarkingitem;
+	  };
+
 
 }

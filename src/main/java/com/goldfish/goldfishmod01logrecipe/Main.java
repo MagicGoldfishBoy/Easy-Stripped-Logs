@@ -2,7 +2,7 @@ package com.goldfish.goldfishmod01logrecipe;
 
 import org.slf4j.Logger;
 
-import com.goldfish.goldfishmod01logrecipe.item.LogDebarkingItem;
+import com.goldfish.goldfishmod01logrecipe.item.logdebarkingitem;
 import com.mojang.logging.LogUtils;
 
 import net.minecraft.client.Minecraft;
@@ -44,9 +44,9 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import com.goldfish.goldfishmod01logrecipe.*;
-import com.goldfish.goldfishmod01logrecipe.registry.LogDebarkingItemRegistration;
+import com.goldfish.goldfishmod01logrecipe.item.logdebarkingitem;
 
-// The value here should match an entry in the META-INF/neoforge.mods.toml file
+
 @Mod(Main.MODID)
 public class Main
 {
@@ -60,20 +60,10 @@ public class Main
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
-    public static final DeferredItem<Item> DebarkReg = LogDebarkingItemRegistration.LogDebarkingItemRegistrationMethod();
+    public static final DeferredItem<Item> DebarkReg = logdebarkingitem.logdebarkingitemRegistrationMethod();
 
     //debarking knife simple
-    public static final DeferredItem<Item> debarking_knife_item = ITEMS.registerSimpleItem("debarking_knife_item", new Item.Properties().craftRemainder(null)); //todo: find way to make crafting remainder work
-
-
-    // Creates a creative tab with the id "examplemod:example_tab" for the example item, that is placed after the combat tab
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
-            .title(Component.translatable("itemGroup.examplemod")) //The language key for the title of your CreativeModeTab
-            .withTabsBefore(CreativeModeTabs.COMBAT)
-            .icon(() -> debarking_knife_item.get().getDefaultInstance())
-            .displayItems((parameters, output) -> {
-                output.accept(debarking_knife_item.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
-            }).build());
+    //public static final DeferredItem<Item> debarking_knife_item = ITEMS.registerSimpleItem("debarking_knife_item", new Item.Properties().craftRemainder(null)); //todo: find way to make crafting remainder work
 
     public Main(IEventBus modEventBus, ModContainer modContainer)
     {
@@ -88,9 +78,6 @@ public class Main
 
         NeoForge.EVENT_BUS.register(this);
 
-        // Register the item to a creative tab
-        //modEventBus.addListener(this::addCreative);
-
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
         
@@ -99,7 +86,7 @@ public class Main
     private void commonSetup(final FMLCommonSetupEvent event)
     {
         // Some common setup code
-        LOGGER.info("HELLO FROM COMMON SETUP");
+        LOGGER.info("Goldfish goes bloop");
 
         if (Config.logDirtBlock)
             LOGGER.info("DIRT BLOCK >> {}", BuiltInRegistries.BLOCK.getKey(Blocks.DIRT));
@@ -127,38 +114,6 @@ public class Main
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
         }
     }
-    // public record debarking_knife_recipe(Ingredient input, int data, ItemStack output) implements Recipe<Container> {
-    //     @Override
-    //     public RecipeType<?> getType() {
-    //         return RecipeType.CRAFTING;
-    //     }
-    //     @Override
-    //     public RecipeSerializer<?> getSerializer() {
-    //     return RecipeSerializer.SHAPELESS_RECIPE;
-    //     }
-    //     @Override
-    //     public boolean canCraftInDimensions(int pWidth, int pHeight) {
-    //         return true;
-    //     }
-    //     @Override
-    //     public boolean matches(Container pContainer, Level pLevel) {
-    //         return input.test(pContainer.getItem(0));
-    //     }
-    //     @Override
-    //     public ItemStack assemble(Container pCraftingContainer, Provider pRegistries)  {
-    //         if (!matches(pCraftingContainer, null)) {
-    //             return ItemStack.EMPTY;
-    //         }
-        
-    //         ItemStack debarking_knife_item = new ItemStack(output.getItem(), 1);
-        
-    //         return debarking_knife_item;
-    //     }
-    //     @Override
-    //     public ItemStack getResultItem(Provider pRegistries) {
-    //         return output.copy();
-    //     }
-    // }
     
 }
 
