@@ -56,26 +56,24 @@ public class logdebarkingitem extends Item {
 		new logdebarkingitem(new Item.Properties()));
 		System.out.println("registered debarker");
 		return logdebarkingitem;
+
+		
 	};
 	
     public logdebarkingitem(Item.Properties properties) {
         super(properties);
-		properties.craftRemainder(this);
+	//	properties.craftRemainder(this);
     }
 
-}
+	@Override
+	public ItemStack getCraftingRemainingItem(ItemStack stack)
+	{
+		return stack.copy();
+	}
 
-    // public Item craftRemainder(Item item) {
-	// 	System.out.println("debarker craft remainder");
-	//     return this;		
-	// }
-    
-	// public ItemStack getCraftingRemainingItem(ItemStack stack)
-	// {
-	// 	return stack.copy();
-	// }
-
-	// public boolean hasCraftingRemainingItem(ItemStack stack)
-	// {
-	// 	return true;
-	// }
+	@Override
+	public boolean hasCraftingRemainingItem(ItemStack stack)
+	{
+		return true;
+	}
+	}
