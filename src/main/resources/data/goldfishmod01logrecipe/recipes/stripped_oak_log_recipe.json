@@ -5,7 +5,7 @@
             "item": "minecraft:oak_log"
         },
         {
-            "item": "goldfishmod01logrecipe:logdebarkingitem"
+            "item": "goldfishmod01logrecipe:log_debarking_item"
         }
     ],
     "result": {
