@@ -53,7 +53,7 @@ public class logdebarkingitem extends Item {
 	public static final DeferredItem<Item> logdebarkingitemRegistrationMethod(){
 	  
 		DeferredItem<Item> logdebarkingitem = Main.ITEMS.register("log_debarking_item", () ->
-		new logdebarkingitem(new Item.Properties()));
+		new logdebarkingitem(new Item.Properties().stacksTo(1)));
 		System.out.println("registered debarker");
 		return logdebarkingitem;
 
@@ -62,7 +62,6 @@ public class logdebarkingitem extends Item {
 	
     public logdebarkingitem(Item.Properties properties) {
         super(properties);
-	//	properties.craftRemainder(this);
     }
 
 	@Override
