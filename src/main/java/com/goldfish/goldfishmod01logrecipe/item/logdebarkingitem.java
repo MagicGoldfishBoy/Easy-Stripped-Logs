@@ -47,9 +47,7 @@ import com.goldfish.goldfishmod01logrecipe.*;
 import com.goldfish.goldfishmod01logrecipe.Main.*;
 
 public class logdebarkingitem extends Item {
-	// public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(
 
-	// );
 	public static final DeferredItem<Item> logdebarkingitemRegistrationMethod(){
 	  
 		DeferredItem<Item> logdebarkingitem = Main.ITEMS.register("log_debarking_item", () ->
