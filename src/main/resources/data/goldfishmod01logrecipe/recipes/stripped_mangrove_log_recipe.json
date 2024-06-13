@@ -1,0 +1,15 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:mangrove_log"
+        },
+        {
+            "item": "goldfishmod01logrecipe:log_debarking_item"
+        }
+    ],
+    "result": {
+        "id": "minecraft:stripped_mangrove_log",
+        "count": 1
+    }
+}
