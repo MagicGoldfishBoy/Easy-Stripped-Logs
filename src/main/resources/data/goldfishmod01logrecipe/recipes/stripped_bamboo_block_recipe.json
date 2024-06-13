@@ -1,0 +1,15 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:bamboo_block"
+        },
+        {
+            "item": "goldfishmod01logrecipe:log_debarking_item"
+        }
+    ],
+    "result": {
+        "id": "minecraft:stripped_bamboo_block",
+        "count": 1
+    }
+}
