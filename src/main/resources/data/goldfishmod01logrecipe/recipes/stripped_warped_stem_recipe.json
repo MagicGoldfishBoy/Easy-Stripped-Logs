@@ -1,0 +1,15 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "minecraft:warped_stem"
+        },
+        {
+            "item": "goldfishmod01logrecipe:log_debarking_item"
+        }
+    ],
+    "result": {
+        "id": "minecraft:stripped_warped_stem",
+        "count": 1
+    }
+}
