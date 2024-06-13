@@ -62,10 +62,6 @@ public class Main
 
     public static final DeferredItem<Item> DebarkReg = logdebarkingitem.logdebarkingitemRegistrationMethod();
 
-
-    //debarking knife simple
-    //public static final DeferredItem<Item> debarking_knife_item = ITEMS.registerSimpleItem("debarking_knife_item", new Item.Properties().craftRemainder(null)); //todo: find way to make crafting remainder work
-
     public Main(IEventBus modEventBus, ModContainer modContainer)
     {
 
@@ -79,14 +75,12 @@ public class Main
 
         NeoForge.EVENT_BUS.register(this);
 
-        // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
         
     }
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
-        // Some common setup code
         LOGGER.info("Goldfish goes bloop");
 
         if (Config.logDirtBlock)
@@ -110,7 +104,6 @@ public class Main
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-            // Some client setup code
             LOGGER.info("Brillant");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
         }
