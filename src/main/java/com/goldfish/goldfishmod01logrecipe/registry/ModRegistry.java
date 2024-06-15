@@ -1,7 +1,8 @@
-package com.goldfish.goldfishmod01logrecipe.item;
+package com.goldfish.goldfishmod01logrecipe.registry;
 
 import org.slf4j.Logger;
 
+import com.goldfish.goldfishmod01logrecipe.item.logdebarkingitem;
 import com.mojang.logging.LogUtils;
 
 import net.minecraft.client.Minecraft;
@@ -16,7 +17,6 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -44,37 +44,15 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import com.goldfish.goldfishmod01logrecipe.*;
+import com.goldfish.goldfishmod01logrecipe.item.logdebarkingitem;
 import com.goldfish.goldfishmod01logrecipe.Main.*;
 
-public class logdebarkingitem extends Item {
-	//public static DeferredItem<Item> logdebarkingitem;
+import java.util.function.Supplier;
 
-	// public static final DeferredItem<Item> logdebarkingitemRegistrationMethod(){
-		
-	  
-	// 	DeferredItem<Item> logdebarkingitem = Main.ITEMS.register("log_debarking_item", () ->
-	// 	new logdebarkingitem(new Item.Properties().stacksTo(1)));
-	// 	System.out.println("registered debarker");
-	// 	return logdebarkingitem;
-	// }
-	
-    public logdebarkingitem(Item.Properties properties) {
-        super(properties);
-    }
+//import static com.goldfish.goldfishmod01logrecipe.MODID;
 
-	@Override
-	public ItemStack getCraftingRemainingItem(ItemStack stack)
-	{
-		return stack.copy();
-	}
-
-	@Override
-	public boolean hasCraftingRemainingItem(ItemStack stack)
-	{
-		return true;
-	}
-
-	// public static DeferredItem<Item> logdebarkingitemget(){
-    // return logdebarkingitem;
-	// }
-	}
+public class ModRegistry {
+   public static final DeferredRegister<Item> MODITEMS = DeferredRegister.create(BuiltInRegistries.ITEM, Main.MODID);
+   
+   public static final Supplier<Item> logdebarkingitem = MODITEMS.register("log_debarking_item", () -> new Item((new Item.Properties())));
+}

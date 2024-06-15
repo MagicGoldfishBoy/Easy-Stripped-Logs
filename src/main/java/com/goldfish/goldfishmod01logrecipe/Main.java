@@ -3,6 +3,7 @@ package com.goldfish.goldfishmod01logrecipe;
 import org.slf4j.Logger;
 
 import com.goldfish.goldfishmod01logrecipe.item.logdebarkingitem;
+import com.goldfish.goldfishmod01logrecipe.registry.ModRegistry;
 import com.mojang.logging.LogUtils;
 
 import net.minecraft.client.Minecraft;
@@ -60,9 +61,9 @@ public class Main
 
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
 
-    //public static final DeferredItem<Item> DebarkReg = logdebarkingitem.logdebarkingitemRegistrationMethod();
+    public static final DeferredRegister.Items MODITEMS = DeferredRegister.createItems(MODID);
 
-    public static final DeferredItem<Item> DebarkReg = logdebarkingitem.logdebarkingitem;
+    //public static final DeferredItem<Item> Debark = logdebarkingitem.logdebarkingitem;
 
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
@@ -74,7 +75,8 @@ public class Main
 
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
-        logdebarkingitem.logdebarkingitemRegistrationMethod();
+        ModRegistry.MODITEMS.register(modEventBus);
+      //  logdebarkingitem.logdebarkingitemRegistrationMethod();
         CREATIVE_MODE_TABS.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);
@@ -108,17 +110,15 @@ public class Main
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
         }
 
-        @SubscribeEvent
-        public static void buildContents(BuildCreativeModeTabContentsEvent event) { //<- currently this does not actually work as the item is always null, which is very confusing because I can craft it and use the give command
-           // LOGGER.info("This was supposed to be easy!");                           // I would ask for help, but as a nohelpian this is against my religion. Also I'm a nooblet so I doubt it would end well anyway :(
-            logdebarkingitem.logdebarkingitemget();
-            if (event.getTabKey() == CreativeModeTabs.INGREDIENTS && logdebarkingitem.logdebarkingitem != null) {              
-                event.accept(logdebarkingitem.logdebarkingitem.get());
-               // LOGGER.info("FINALLY!!!");
-            }else {
-               // LOGGER.info("FML!!!");
-            }
-        }
+         @SubscribeEvent
+         public static void buildContents(BuildCreativeModeTabContentsEvent event) {                       
+             if (event.getTabKey() == CreativeModeTabs.INGREDIENTS && ModRegistry.logdebarkingitem != null) {              
+                 event.accept(ModRegistry.logdebarkingitem.get());
+                 LOGGER.info("FINALLY!!!");
+             }else {
+                 LOGGER.info("FML!!!");
+             }
+         }
     }
     
 }
