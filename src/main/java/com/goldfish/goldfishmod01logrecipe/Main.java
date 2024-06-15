@@ -48,8 +48,10 @@ import com.goldfish.goldfishmod01logrecipe.item.logdebarkingitem;
 
 
 @Mod(Main.MODID)
+
 public class Main
 {
+
     public static final String MODID = "goldfishmod01logrecipe";
 
     private static final Logger LOGGER = LogUtils.getLogger();
@@ -58,20 +60,22 @@ public class Main
 
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
 
+    //public static final DeferredItem<Item> DebarkReg = logdebarkingitem.logdebarkingitemRegistrationMethod();
+
+    public static final DeferredItem<Item> DebarkReg = logdebarkingitem.logdebarkingitem;
+
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
-    public static final DeferredItem<Item> DebarkReg = logdebarkingitem.logdebarkingitemRegistrationMethod();
-
     public Main(IEventBus modEventBus, ModContainer modContainer)
+    
     {
 
         modEventBus.addListener(this::commonSetup);
 
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
+        logdebarkingitem.logdebarkingitemRegistrationMethod();
         CREATIVE_MODE_TABS.register(modEventBus);
-        DebarkReg.getId();
-        DebarkReg.getKey();
 
         NeoForge.EVENT_BUS.register(this);
 
@@ -85,11 +89,13 @@ public class Main
 
         Config.items.forEach((item) -> LOGGER.info("ITEM >> {}", item.toString()));
     }
+    
+
 
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event)
     {
-        LOGGER.info("HELLO from server starting");
+        LOGGER.info("The server started lol");
     }
 
     @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -100,6 +106,18 @@ public class Main
         {
             LOGGER.info("Brillant");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+        }
+
+        @SubscribeEvent
+        public static void buildContents(BuildCreativeModeTabContentsEvent event) { //<- currently this does not actually work as the item is always null, which is very confusing because I can craft it and use the give command
+           // LOGGER.info("This was supposed to be easy!");                           // I would ask for help, but as a nohelpian this is against my religion. Also I'm a nooblet so I doubt it would end well anyway :(
+            logdebarkingitem.logdebarkingitemget();
+            if (event.getTabKey() == CreativeModeTabs.INGREDIENTS && logdebarkingitem.logdebarkingitem != null) {              
+                event.accept(logdebarkingitem.logdebarkingitem.get());
+               // LOGGER.info("FINALLY!!!");
+            }else {
+               // LOGGER.info("FML!!!");
+            }
         }
     }
     
