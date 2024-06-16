@@ -49,8 +49,6 @@ import com.goldfish.goldfishmod01logrecipe.Main.*;
 
 import java.util.function.Supplier;
 
-//import static com.goldfish.goldfishmod01logrecipe.MODID;
-
 public class ModRegistry {
    public static final DeferredRegister<Item> MODITEMS = DeferredRegister.create(BuiltInRegistries.ITEM, Main.MODID);
    

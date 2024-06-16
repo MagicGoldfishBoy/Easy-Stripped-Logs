@@ -74,7 +74,6 @@ public class Main
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
         ModRegistry.MODITEMS.register(modEventBus);
-      //  logdebarkingitem.logdebarkingitemRegistrationMethod();
         CREATIVE_MODE_TABS.register(modEventBus);
 
         NeoForge.EVENT_BUS.register(this);

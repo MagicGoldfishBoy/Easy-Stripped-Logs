@@ -47,16 +47,6 @@ import com.goldfish.goldfishmod01logrecipe.*;
 import com.goldfish.goldfishmod01logrecipe.Main.*;
 
 public class logdebarkingitem extends Item {
-	//public static DeferredItem<Item> logdebarkingitem;
-
-	// public static final DeferredItem<Item> logdebarkingitemRegistrationMethod(){
-		
-	  
-	// 	DeferredItem<Item> logdebarkingitem = Main.ITEMS.register("log_debarking_item", () ->
-	// 	new logdebarkingitem(new Item.Properties().stacksTo(1)));
-	// 	System.out.println("registered debarker");
-	// 	return logdebarkingitem;
-	// }
 	
     public logdebarkingitem(Item.Properties properties) {
         super(properties);
@@ -73,8 +63,4 @@ public class logdebarkingitem extends Item {
 	{
 		return true;
 	}
-
-	// public static DeferredItem<Item> logdebarkingitemget(){
-    // return logdebarkingitem;
-	// }
 	}
