@@ -54,5 +54,6 @@ import java.util.function.Supplier;
 public class ModRegistry {
    public static final DeferredRegister<Item> MODITEMS = DeferredRegister.create(BuiltInRegistries.ITEM, Main.MODID);
    
-   public static final Supplier<Item> logdebarkingitem = MODITEMS.register("log_debarking_item", () -> new Item((new Item.Properties())));
+   public static final Supplier<Item> logdebarkingitem = MODITEMS.register("log_debarking_item", () -> new logdebarkingitem((new Item.Properties().stacksTo(1))));
+
 }

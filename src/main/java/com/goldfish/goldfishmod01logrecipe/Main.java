@@ -63,8 +63,6 @@ public class Main
 
     public static final DeferredRegister.Items MODITEMS = DeferredRegister.createItems(MODID);
 
-    //public static final DeferredItem<Item> Debark = logdebarkingitem.logdebarkingitem;
-
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
     public Main(IEventBus modEventBus, ModContainer modContainer)
@@ -97,7 +95,7 @@ public class Main
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event)
     {
-        LOGGER.info("The server started lol");
+        LOGGER.info("The server says fish bowls are animal abuse");
     }
 
     @EventBusSubscriber(modid = MODID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -114,9 +112,8 @@ public class Main
          public static void buildContents(BuildCreativeModeTabContentsEvent event) {                       
              if (event.getTabKey() == CreativeModeTabs.INGREDIENTS && ModRegistry.logdebarkingitem != null) {              
                  event.accept(ModRegistry.logdebarkingitem.get());
-                 LOGGER.info("FINALLY!!!");
              }else {
-                 LOGGER.info("FML!!!");
+                 LOGGER.info("logdebarker failed to register properly");
              }
          }
     }
